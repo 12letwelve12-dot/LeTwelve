@@ -108,7 +108,7 @@
       name: String(data.get('name') || '').trim(),
       rating: Number(data.get('rating')),
       review: String(data.get('review') || '').trim(),
-      approved: false
+      approved: true
     };
 
     if (
