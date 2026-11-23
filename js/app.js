@@ -19,7 +19,52 @@ const hide=()=>{if(popup)popup.classList.remove("show");sessionStorage.setItem("
 if(popup&&!sessionStorage.getItem("letwelve-lead-closed"))setTimeout(()=>popup.classList.add("show"),5000);
 if(close)close.onclick=hide;
 if(popup)popup.addEventListener("click",e=>{if(e.target===popup)hide();});
-if(form)form.onsubmit=e=>{e.preventDefault();let d=new FormData(form),name=String(d.get("name")||"").trim(),email=String(d.get("email")||"").trim();if(!name||!email)return;try{let leads=JSON.parse(localStorage.getItem("letwelve-leads")||"[]");leads.push({name,email,date:new Date().toISOString()});localStorage.setItem("letwelve-leads",JSON.stringify(leads));}catch{}form.innerHTML='<h2>¡YA LO TIENES!</h2><p>Tu código de descuento:</p><strong class="discount-code">LETWELVE10</strong><p class="form-note">Registro temporal en este navegador. La conexión con Klaviyo está pendiente.</p><button type="button" class="button" id="leadDone">SEGUIR COMPRANDO</button>';$("#leadDone").onclick=hide;};
+if(form)form.onsubmit=async e=>{
+  e.preventDefault();
+  const d=new FormData(form);
+  const name=String(d.get("name")||"").trim();
+  const email=String(d.get("email")||"").trim();
+  const consent=form.querySelector('input[type="checkbox"]');
+  const button=form.querySelector('button[type="submit"]');
+  const note=form.querySelector("small") || form.querySelector(".form-note");
+  if(!name||!email||!consent||!consent.checked)return;
+  if(button){button.disabled=true;button.textContent="ENVIANDO…";}
+  const siteId="VnZnjU";
+  const listId="U7BLdG";
+  const payload={
+    data:{
+      type:"subscription",
+      attributes:{
+        custom_source:"LeTwelve - Popup 10%",
+        profile:{data:{type:"profile",attributes:{
+          email,
+          first_name:name,
+          subscriptions:{email:{marketing:{consent:"SUBSCRIBED"}}}
+        }}}
+      },
+      relationships:{list:{data:{type:"list",id:listId}}}
+    }
+  };
+  try{
+    const response=await fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${encodeURIComponent(siteId)}`,{
+      method:"POST",
+      headers:{"accept":"application/vnd.api+json","content-type":"application/vnd.api+json","revision":"2026-10-15"},
+      body:JSON.stringify(payload)
+    });
+    if(!response.ok){
+      let detail="";try{const body=await response.json();detail=body.errors?.map(x=>x.detail||x.title).join(" ")||JSON.stringify(body);}catch{}
+      throw new Error(detail||`Klaviyo ha respondido ${response.status}`);
+    }
+    form.innerHTML='<h2>¡YA LO TIENES!</h2><p>Gracias por apuntarte a LeTwelve.</p><p>Tu código de descuento:</p><strong class="discount-code">LETWELVE10</strong><p class="form-note">Si tienes activada la confirmación doble, revisa tu correo para confirmar la suscripción.</p><button type="button" class="button" id="leadDone">SEGUIR COMPRANDO</button>';
+    $("#leadDone").onclick=hide;
+  }catch(error){
+    console.error("Error al conectar el popup con Klaviyo:",error);
+    let msg=form.querySelector(".klaviyo-error");
+    if(!msg){msg=document.createElement("small");msg.className="klaviyo-error";msg.setAttribute("role","alert");form.appendChild(msg);}
+    msg.textContent="No se ha podido completar el registro. " + error.message;
+    if(button){button.disabled=false;button.textContent="CONSEGUIR MI 10%";}
+  }
+};
 render();
 if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 })();
