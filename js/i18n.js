@@ -1,0 +1,10 @@
+(() => {
+const key="letwelve-language";let lang=localStorage.getItem(key)||"es";
+const words={es:{home:"Inicio",about:"Sobre nosotros",contact:"Contacto",shopNow:"DESCUBRIR SHOP",intro:"La comodidad de siempre.<br>Una identidad propia.",ourStory:"CONOCE NUESTRA HISTORIA ↗",sizes:"Tallas disponibles: XS — XL",announcement:"ENVÍO Y DEVOLUCIONES: INFORMACIÓN PRÓXIMAMENTE · 5% DE DESCUENTO EN CONJUNTOS",viewProduct:"VER PRODUCTO",addBag:"AÑADIR A LA BOLSA"},en:{home:"Home",about:"About us",contact:"Contact",shopNow:"DISCOVER SHOP",intro:"Everyday comfort.<br>A unique identity.",ourStory:"OUR STORY ↗",sizes:"Available sizes: XS — XL",announcement:"SHIPPING & RETURNS: MORE INFORMATION SOON · 5% OFF FULL SETS",viewProduct:"VIEW PRODUCT",addBag:"ADD TO BAG"}};
+function apply(){
+const navText=lang==="es"?{ "index.html":"Inicio","sobre-nosotros.html":"Sobre nosotros","shop.html":"Shop All","contacto.html":"Contacto","blog/index.html":"Blog","resenas.html":"Reseñas","cuenta.html":"MI CUENTA"}:{"index.html":"Home","sobre-nosotros.html":"About us","shop.html":"Shop All","contacto.html":"Contact","blog/index.html":"Blog","resenas.html":"Reviews","cuenta.html":"MY ACCOUNT"};
+document.querySelectorAll(".nav a").forEach(a=>{const href=a.getAttribute("href")||"";const key=href.split("?")[0].split("#")[0].replace(/^\.\.\//,"");if(navText[key])a.textContent=navText[key];});
+document.documentElement.lang=lang;document.querySelectorAll("#langBtn").forEach(b=>b.textContent=lang==="es"?"ES / EN":"EN / ES");document.querySelectorAll("[data-i18n]").forEach(el=>{let v=words[lang][el.dataset.i18n];if(v)el.innerHTML=v;});let n=document.querySelector("#detailName"),d=document.querySelector("#detailDescription");if(n?.dataset[lang])n.textContent=n.dataset[lang];if(d?.dataset[lang])d.textContent=d.dataset[lang];let add=document.querySelector("#detailAdd");if(add)add.textContent=words[lang].addBag;}
+document.addEventListener("click",e=>{if(e.target.closest("#langBtn")){lang=lang==="es"?"en":"es";localStorage.setItem(key,lang);apply();}});
+document.addEventListener("letwelve-product-loaded",apply);apply();
+})();

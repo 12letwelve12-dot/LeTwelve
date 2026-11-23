@@ -1,0 +1,15 @@
+SUBIR LETWELVE A GITHUB PAGES
+
+Dentro del ZIP hay una carpeta letwelve-web. Abre esa carpeta y sube TODO SU CONTENIDO al repositorio. No subas solo index.html ni solo la carpeta sin su contenido.
+
+La raíz del repositorio debe contener index.html, shop.html, producto.html, products.json y las carpetas assets, css, js y blog.
+
+1. Crea un repositorio en GitHub.
+2. Pulsa Add file > Upload files.
+3. Arrastra todo lo que hay DENTRO de letwelve-web, incluidas las carpetas assets, css, js y blog.
+4. Pulsa Commit changes.
+5. En Settings > Pages selecciona Deploy from a branch.
+6. Elige main y /(root), guarda y espera la publicación.
+
+No renombres ni muevas assets, css, js o products.json. Si solo subes los HTML, no se cargarán imágenes, estilos ni scripts.
+Las rutas del sitio están escritas como rutas relativas para funcionar en GitHub Pages, también en repositorios de proyecto.
