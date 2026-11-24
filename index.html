@@ -9,13 +9,21 @@
 <body>
 <div class="announcement" data-i18n="announcement">ENVÍO Y DEVOLUCIONES: INFORMACIÓN PRÓXIMAMENTE · 5% DE DESCUENTO EN CONJUNTOS</div>
 <header class="header">
-  <button class="menu-toggle" aria-label="Abrir menú">☰</button>
-  <a class="brand" href="index.html"><img src="assets/logo-xii.png" alt="XII LeTwelve"></a>
-  <nav class="nav" id="nav">
-    <a href="index.html" data-i18n="home">Inicio</a><a href="sobre-nosotros.html" data-i18n="about">Sobre nosotros</a>
-    <a href="shop.html">Shop All</a><a href="contacto.html" data-i18n="contact">Contacto</a><a href="blog/index.html">Blog</a><a href="resenas.html">Reseñas</a>
+  <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo-xii.png" alt="LeTwelve"></a>
+  <nav class="nav" id="nav" aria-label="Navegación principal">
+    <a href="index.html" data-i18n="home">Inicio</a>
+    <a href="sobre-nosotros.html" data-i18n="about">Sobre nosotros</a>
+    <a href="shop.html">Shop All</a>
+    <a href="contacto.html" data-i18n="contact">Contacto</a>
+    <a href="blog/index.html">Blog</a>
+    <a href="resenas.html">Reseñas</a>
   </nav>
-  <div class="header-actions"><a class="text-btn" href="cuenta.html">MI CUENTA</a><button id="langBtn" class="text-btn">ES / EN</button><button id="cartOpen" class="text-btn cart-link">BAG (<span id="cartCount">0</span>)</button></div>
+  <div class="header-actions">
+    <a class="text-btn" href="cuenta.html">MI CUENTA</a>
+    <button id="langBtn" class="text-btn" type="button">ES / EN</button>
+    <button id="cartOpen" class="text-btn cart-link" type="button">BAG (<span id="cartCount">0</span>)</button>
+  </div>
 </header>
 <main>
 <section class="hero" id="inicio">

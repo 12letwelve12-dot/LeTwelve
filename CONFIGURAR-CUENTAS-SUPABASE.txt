@@ -1,0 +1,22 @@
+LE TWELVE — ACTIVAR CREACIÓN DE CUENTAS E INICIO DE SESIÓN
+
+1) En Supabase abre tu proyecto → Settings → API Keys.
+2) Copia la Project URL y la clave Publishable (sb_publishable_...). También sirve la anon pública legacy si tu proyecto la muestra.
+3) En GitHub abre js/config.js y sustituye los dos textos PON_AQUI... por esos valores. Solo usa la clave pública. Nunca uses una clave sb_secret o service_role en una web.
+4) En Supabase entra en Authentication → URL Configuration. Añade como Site URL y Redirect URL:
+   https://12letwelve12-dot.github.io/LeTwelve/
+   https://12letwelve12-dot.github.io/LeTwelve/cuenta.html
+5) En Authentication → Sign In / Providers, comprueba que Email está activado.
+6) Publica los cambios de GitHub Pages y abre /cuenta.html.
+
+FUNCIONES
+- Crear cuenta con nombre, correo y contraseña (mínimo 8 caracteres).
+- Inicio y cierre de sesión.
+- Confirmación por correo si está activada en Supabase.
+- Recuperación de contraseña por correo.
+- La sesión se mantiene usando el sistema de sesión de Supabase.
+
+IMPORTANTE
+- La autenticación utiliza Supabase Auth; las contraseñas no se guardan en localStorage ni en código propio.
+- Si la confirmación por email está activada, el usuario debe abrir el correo y confirmar la cuenta antes de iniciar sesión.
+- El resto de funciones de la web y el popup de Klaviyo se conservan.
